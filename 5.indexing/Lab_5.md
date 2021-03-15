@@ -104,7 +104,9 @@ Would it be possible to satisfy the query with an index only and further speed u
 Record output below:
 
 ```
-
+QUERY PLAN
+`--SEARCH TABLE big_cards USING COVERING INDEX IDX2_big_cards (race=?)
+Run Time: real 0.000 user 0.000033 sys 0.000023
 ```
 
 If you issue command `VACUUM big_cards;` and re-analyze you will likely see an explain plan that *is* satisfied by the index (and consequently much faster). However, subsequent updates to the table would cause this query to go back to the table to check the visibility map.
@@ -116,7 +118,9 @@ If you issue command `VACUUM big_cards;` and re-analyze you will likely see an e
 Record output below:
 
 ```
-
+QUERY PLAN
+`--SEARCH TABLE big_cards USING COVERING INDEX IDX2_big_cards (race=?)
+Run Time: real 0.000 user 0.000000 sys 0.000091
 ```
 
 #### The performance cost of Indexes 
@@ -132,7 +136,9 @@ Note the Execution time.
 Record output below:
 
 ```
-
+QUERY PLAN
+`--SCAN TABLE big_cards
+Run Time: real 0.000 user 0.000006 sys 0.000122
 ```
 
 
@@ -147,7 +153,9 @@ Now let's drop the indexes and try again:
 Record output below:
 
 ```
-
+QUERY PLAN
+`--SCAN TABLE big_cards
+Run Time: real 0.000 user 0.000080 sys 0.000000
 ```
 
 Does the update took less time without the indexes? 
