@@ -58,7 +58,9 @@ sqlite> EXPLAIN QUERY PLAN SELECT count(*) FROM big_cards;
 Record output below:
 
 ```
-
+QUERY PLAN
+`--SCAN TABLE big_cards
+Run Time: real 0.000 user 0.000046 sys 0.000034
 ```
 
 #### Using Indexes to improve performance
@@ -74,7 +76,9 @@ You suspect an index will help, but before you make any changes you want to get 
 Record output below:
 
 ```
-
+QUERY PLAN
+`--SCAN TABLE big_cards
+Run Time: real 0.000 user 0.000103 sys 0.000000
 ```
 
 You suspect that an index on the race column will help. Let's create it.
@@ -86,7 +90,9 @@ You suspect that an index on the race column will help. Let's create it.
 Record output below:
 
 ```
-
+QUERY PLAN
+`--SEARCH TABLE big_cards USING INDEX IDX1_big_cards (race=?)
+Run Time: real 0.000 user 0.000059 sys 0.000049
 ```
 
 Would it be possible to satisfy the query with an index only and further speed up the query?
