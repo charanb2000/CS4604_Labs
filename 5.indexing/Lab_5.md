@@ -60,7 +60,7 @@ Record output below:
 ```
 QUERY PLAN
 `--SCAN TABLE big_cards
-Run Time: real 0.000 user 0.000046 sys 0.000034
+Run Time: real 0.000 user 0.000081 sys 0.000000
 ```
 
 #### Using Indexes to improve performance
@@ -91,8 +91,8 @@ Record output below:
 
 ```
 QUERY PLAN
-`--SEARCH TABLE big_cards USING INDEX IDX1_big_cards (race=?)
-Run Time: real 0.000 user 0.000059 sys 0.000049
+`--SCAN TABLE big_cards
+Run Time: real 0.000 user 0.000055 sys 0.000000
 ```
 
 Would it be possible to satisfy the query with an index only and further speed up the query?
