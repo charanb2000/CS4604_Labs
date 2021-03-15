@@ -161,14 +161,15 @@ Run Time: real 0.000 user 0.000072 sys 0.000000
 Does the update took less time without the indexes? 
 Your answer:
 ```
-
+The total time (user + sys) was higher with the indexes, as expected.
 ```
 
 Describe your findings of this Lab 5 from the recorded outputs, is everything working fine? or is anything not working? etc. Please indicate your SQLite version:
 
 ```
-SQLite version: 
+SQLite version: 3.26.0
 Findings:
+It seems like you have to be careful when adding indexes because more indexes does not necessarily result in higher speeds. After adding the first index the query was faster than before. The second index made it either slower or about the same when compared to the exucution time with just the first index. Indexes also were not helpful updating. The updates were faster after the indexes were removed than compared to when they were kept.
 
 
 ```
