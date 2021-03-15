@@ -60,7 +60,7 @@ Record output below:
 ```
 QUERY PLAN
 `--SCAN TABLE big_cards
-Run Time: real 0.000 user 0.000081 sys 0.000000
+Run Time: real 0.000 user 0.000065 sys 0.000019
 ```
 
 #### Using Indexes to improve performance
@@ -78,7 +78,7 @@ Record output below:
 ```
 QUERY PLAN
 `--SCAN TABLE big_cards
-Run Time: real 0.000 user 0.000103 sys 0.000000
+Run Time: real 0.000 user 0.000078 sys 0.000026
 ```
 
 You suspect that an index on the race column will help. Let's create it.
@@ -91,8 +91,8 @@ Record output below:
 
 ```
 QUERY PLAN
-`--SCAN TABLE big_cards
-Run Time: real 0.000 user 0.000055 sys 0.000000
+`--SEARCH TABLE big_cards USING INDEX IDX1_big_cards (race=?)
+Run Time: real 0.000 user 0.000043 sys 0.000013
 ```
 
 Would it be possible to satisfy the query with an index only and further speed up the query?
@@ -106,7 +106,7 @@ Record output below:
 ```
 QUERY PLAN
 `--SEARCH TABLE big_cards USING COVERING INDEX IDX2_big_cards (race=?)
-Run Time: real 0.000 user 0.000033 sys 0.000023
+Run Time: real 0.000 user 0.000085 sys 0.000022
 ```
 
 If you issue command `VACUUM big_cards;` and re-analyze you will likely see an explain plan that *is* satisfied by the index (and consequently much faster). However, subsequent updates to the table would cause this query to go back to the table to check the visibility map.
@@ -120,7 +120,7 @@ Record output below:
 ```
 QUERY PLAN
 `--SEARCH TABLE big_cards USING COVERING INDEX IDX2_big_cards (race=?)
-Run Time: real 0.000 user 0.000000 sys 0.000091
+Run Time: real 0.035 user 0.001054 sys 0.031637
 ```
 
 #### The performance cost of Indexes 
@@ -138,7 +138,7 @@ Record output below:
 ```
 QUERY PLAN
 `--SCAN TABLE big_cards
-Run Time: real 0.000 user 0.000006 sys 0.000122
+Run Time: real 0.000 user 0.000000 sys 0.000119
 ```
 
 
@@ -155,7 +155,7 @@ Record output below:
 ```
 QUERY PLAN
 `--SCAN TABLE big_cards
-Run Time: real 0.000 user 0.000080 sys 0.000000
+Run Time: real 0.000 user 0.000072 sys 0.000000
 ```
 
 Does the update took less time without the indexes? 
