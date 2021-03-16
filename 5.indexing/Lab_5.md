@@ -138,7 +138,7 @@ Record output below:
 ```
 QUERY PLAN
 `--SCAN TABLE big_cards
-Run Time: real 0.000 user 0.000058 sys 0.000028
+Run Time: real 184.689 user 27.336755 sys 25.217591
 ```
 
 
@@ -155,7 +155,7 @@ Record output below:
 ```
 QUERY PLAN
 `--SCAN TABLE big_cards
-Run Time: real 0.000 user 0.000072 sys 0.000000
+Run Time: real 28.019 user 2.867708 sys 3.438183
 ```
 
 Does the update took less time without the indexes? 
@@ -171,7 +171,7 @@ SQLite version: 3.26.0
 Findings:
 It seems like you have to be careful when adding indexes because more indexes does not necessarily result in higher speeds. After
 adding the first index the query was faster than before. The second index made it either slower or about the same when compared to 
-the exucution time with just the first index. Indexes also were not helpful updating. The updates were faster after the indexes 
+the exucution time with just the first index. Indexes also were not helpful when updating. The updates were faster after the indexes 
 were removed than compared to when they were kept.
 
 
