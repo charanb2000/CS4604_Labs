@@ -92,7 +92,7 @@ Record output below:
 ```
 QUERY PLAN
 `--SEARCH TABLE big_cards USING INDEX IDX1_big_cards (race=?)
-Run Time: real 1.272 user 0.015605 sys 0.094728
+Run Time: real 1.257 user 0.030124 sys 0.068279
 ```
 
 Would it be possible to satisfy the query with an index only and further speed up the query?
@@ -106,7 +106,7 @@ Record output below:
 ```
 QUERY PLAN
 `--SEARCH TABLE big_cards USING COVERING INDEX IDX2_big_cards (race=?)
-Run Time: real 0.027 user 0.003067 sys 0.023054
+Run Time: real 0.026 user 0.002723 sys 0.022636
 ```
 
 If you issue command `VACUUM big_cards;` and re-analyze you will likely see an explain plan that *is* satisfied by the index (and consequently much faster). However, subsequent updates to the table would cause this query to go back to the table to check the visibility map.
@@ -170,9 +170,8 @@ Describe your findings of this Lab 5 from the recorded outputs, is everything wo
 SQLite version: 3.26.0
 Findings:
 It seems like you have to be careful when adding indexes because more indexes does not necessarily result in higher speeds. After
-adding the first index the query was faster than before. The second index made it either slower or about the same when compared to 
-the exucution time with just the first index. Indexes also were not helpful when updating. The updates were faster after the indexes 
-were removed than compared to when they were kept.
+adding the first index the query was faster than before. The second index made it eve faster but it may not be worth the increases in speed just due to drawbacks
+elsewhere in performance. Indexes also were not helpful when updating. The updates were faster after the indexes were removed than compared to when they were kept.
 
 
 ```
