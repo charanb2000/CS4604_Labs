@@ -78,7 +78,7 @@ Record output below:
 ```
 QUERY PLAN
 `--SCAN TABLE big_cards
-Run Time: real 0.000 user 0.000078 sys 0.000026
+Run Time: real 0.650 user 0.397522 sys 0.247598
 ```
 
 You suspect that an index on the race column will help. Let's create it.
@@ -92,7 +92,7 @@ Record output below:
 ```
 QUERY PLAN
 `--SEARCH TABLE big_cards USING INDEX IDX1_big_cards (race=?)
-Run Time: real 0.000 user 0.000043 sys 0.000013
+Run Time: real 1.272 user 0.015605 sys 0.094728
 ```
 
 Would it be possible to satisfy the query with an index only and further speed up the query?
@@ -106,7 +106,7 @@ Record output below:
 ```
 QUERY PLAN
 `--SEARCH TABLE big_cards USING COVERING INDEX IDX2_big_cards (race=?)
-Run Time: real 0.000 user 0.000085 sys 0.000022
+Run Time: real 0.027 user 0.003067 sys 0.023054
 ```
 
 If you issue command `VACUUM big_cards;` and re-analyze you will likely see an explain plan that *is* satisfied by the index (and consequently much faster). However, subsequent updates to the table would cause this query to go back to the table to check the visibility map.
@@ -120,7 +120,7 @@ Record output below:
 ```
 QUERY PLAN
 `--SEARCH TABLE big_cards USING COVERING INDEX IDX2_big_cards (race=?)
-Run Time: real 0.035 user 0.001054 sys 0.031637
+Run Time: real 0.059 user 0.001812 sys 0.054535
 ```
 
 #### The performance cost of Indexes 
@@ -138,7 +138,7 @@ Record output below:
 ```
 QUERY PLAN
 `--SCAN TABLE big_cards
-Run Time: real 0.000 user 0.000000 sys 0.000119
+Run Time: real 0.000 user 0.000058 sys 0.000028
 ```
 
 
