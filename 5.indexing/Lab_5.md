@@ -170,7 +170,7 @@ Describe your findings of this Lab 5 from the recorded outputs, is everything wo
 SQLite version: 3.26.0
 Findings:
 It seems like you have to be careful when adding indexes because more indexes does not necessarily result in higher speeds. After
-adding the first index the query was faster than before. The second index made it eve faster but it may not be worth the increases in speed just due to drawbacks
+adding the first index the query was faster than before. The second index made it even faster but it may not be worth the increases in speed just due to drawbacks
 elsewhere in performance. Indexes also were not helpful when updating. The updates were faster after the indexes were removed than compared to when they were kept.
 
 
